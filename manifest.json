@@ -5,6 +5,7 @@
   "description": "Translates ambiguous words by detecting multiple language possibilities based on site context.",
   "permissions": [
     "contextMenus",
+    "menus",
     "activeTab"
   ],
   "background": {
@@ -16,8 +17,5 @@
       "js": ["content.js"],
       "css": ["styles.css"]
     }
-  ],
-  "icons": {
-    "48": "icon.png"
-  }
+  ]
 }
