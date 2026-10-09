@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Polyglot Context Translator",
+  "version": "1.0",
+  "description": "Translates ambiguous words by detecting multiple language possibilities based on site context.",
+  "permissions": [
+    "contextMenus",
+    "activeTab"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "icons": {
+    "48": "icon.png"
+  }
+}
