@@ -1,0 +1,66 @@
+#polyglot-translator-popup {
+    position: absolute;
+    z-index: 100000000;
+    background-color: #ffffff !important;
+    color: #202124 !important;
+    border: 1px solid #dadce0 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+    padding: 12px !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    font-size: 14px !important;
+    max-width: 320px !important;
+    box-sizing: border-box !important;
+}
+
+.polyglot-header {
+    font-size: 12px !important;
+    color: #5f6368 !important;
+    margin-bottom: 8px !important;
+    border-bottom: 1px solid #f1f3f4 !important;
+    padding-bottom: 6px !important;
+}
+
+.polyglot-loading {
+    color: #1a73e8 !important;
+    font-style: italic !important;
+}
+
+.polyglot-results-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.polyglot-result-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: #f8f9fa !important;
+    padding: 6px 8px !important;
+    border-radius: 4px !important;
+}
+
+.polyglot-lang-badge {
+    font-weight: 600 !important;
+    font-size: 12px !important;
+}
+
+.polyglot-translation-text {
+    color: #1967d2 !important;
+    font-weight: 500 !important;
+    text-align: right !important;
+}
+
+.polyglot-no-results {
+    color: #d93025 !important;
+    font-size: 13px !important;
+    margin: 8px 0 !important;
+}
+
+.polyglot-footer {
+    font-size: 10px !important;
+    color: #9aa0a6 !important;
+    text-align: center !important;
+    margin-top: 8px !important;
+}
