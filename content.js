@@ -1,23 +1,22 @@
+// Universal API wrapper for cross-browser compatibility
+const browserAPI = typeof browser !== "undefined" ? browser : chrome;
+
 // Listen for the trigger message from the background script
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browserAPI.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "triggerTranslation") {
     processTranslation(request.text);
   }
 });
 
 async function processTranslation(word) {
-  // Remove any existing popups first
   removeExistingPopup();
 
   const cleanWord = word.trim();
   if (!cleanWord) return;
 
-  // Detect likely language based on the top-level domain (e.g., website.fr -> French)
   const hostname = window.location.hostname;
   const tld = hostname.split('.').pop();
   
-  // Define candidate target pairs to fetch from MyMemory API
-  // We check multiple potential source languages into English
   const languagePairs = [
     { from: 'es', to: 'en', label: '🇪🇸 Spanish' },
     { from: 'fr', to: 'en', label: '🇫🇷 French' },
@@ -26,26 +25,23 @@ async function processTranslation(word) {
     { from: 'pt', to: 'en', label: '🇵🇹 Portuguese' }
   ];
 
-  // Map TLD to prioritize a specific language at the top of the list
   const tldMap = { 'fr': 'fr', 'de': 'de', 'es': 'es', 'it': 'it', 'br': 'pt', 'pt': 'pt' };
   if (tldMap[tld]) {
     const priorityIndex = languagePairs.findIndex(p => p.from === tldMap[tld]);
     if (priorityIndex > -1) {
       const [priorityLang] = languagePairs.splice(priorityIndex, 1);
-      languagePairs.unshift(priorityLang); // Move to top
+      languagePairs.unshift(priorityLang);
     }
   }
 
   showLoadingPopup();
 
-  // Fetch all translations concurrently
   const translationPromises = languagePairs.map(async (pair) => {
     try {
       const response = await fetch(`https://translated.net{encodeURIComponent(cleanWord)}&langpair=${pair.from}|${pair.to}`);
       const data = await response.json();
       const translation = data.responseData.translatedText;
       
-      // Filter out matches where the API just returned the same word (often means invalid translation)
       if (translation && translation.toLowerCase() !== cleanWord.toLowerCase()) {
         return { label: pair.label, translation: translation };
       }
@@ -112,7 +108,6 @@ function removeExistingPopup() {
   if (existing) existing.remove();
 }
 
-// Close popup when clicking anywhere outside
 document.addEventListener('mousedown', (e) => {
   const popup = document.getElementById('polyglot-translator-popup');
   if (popup && !popup.contains(e.target)) {
